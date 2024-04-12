@@ -10,8 +10,8 @@
 TIMESTAMP=$(date +"%Y%m%d%H%M")
 ENVNAME=$1
 CSV=$2
-LOGFILE=runs/discovery-api-log-$TIMESTAMP-$ENVNAME.jtl
-REPORT=runs/discovery-api-log-dashboard-$TIMESTAMP-$ENVNAME
+LOGFILE=discovery-api-log-$TIMESTAMP-$ENVNAME.jtl
+REPORT=discovery-api-log-dashboard-$TIMESTAMP-$ENVNAME
 
 if [ -z $ENVNAME ]; then
   echo Usage: ./run.sh ENVNAME
@@ -19,22 +19,26 @@ if [ -z $ENVNAME ]; then
 fi
 
 mkdir -f runs
-echo Writing to $LOGFILE
 
-echo Running $ENVNAME discovery-api jmeter test. Logging to $LOGFILE
+echo Running $ENVNAME discovery-api jmeter test. Logging to ./runs/$LOGFILE
 HEAP="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m" jmeter \
   -t ../generic-api-jmeter-test-plan.jmx \
   -n \
-  -l $LOGFILE \
+  -l ./runs/$LOGFILE \
   -Jusers=10 \
-  -Jduration=720 \
+  -Jduration=600 \
   -Jcsv=$CSV \
-  -Jdomain=qa-platform.nypl.org
+  -Jdomain=discovery-api-qa.nypl.org
+  # -Jdomain=qa-platform.nypl.org
 
-echo Finished. Logs are at $LOGFILE
+echo Finished. Logs are at runs/$LOGFILE
 
-echo Generating report to $REPORT
-jmeter -g $LOGFILE -o $REPORT
-echo Wrote report to $REPORT
+jmeter -g ./runs/$LOGFILE -o runs/$REPORT
+echo Wrote report to ./runs/$REPORT
 
-open $REPORT/index.html
+cd runs
+zip -rq $ENVNAME-$TIMESTAMP.zip $LOGFILE $REPORT
+cd -
+echo Sharable zip of log and report: runs/$ENVNAME-$TIMESTAMP.zip
+
+open runs/$REPORT/index.html

@@ -10,7 +10,7 @@ See the [discovery-api](./discovery-api) and [sierra-api](./sierra-api) sample p
 
 The generic testing script depends on a CSV containing a bunch of request paths to test at random. Ideally it should contain thousands of paths that are representative of typical usage of the API under testing.
 
-See [discovery-api sample paths](./disocvery-api/sample-paths.csv).
+See [discovery-api sample paths](./discovery-api/sample-paths.csv).
 
 ### Bearer tokens
 

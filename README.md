@@ -48,4 +48,4 @@ Install jmeter if you don’t already have it via:
 
 A general purpose Jmeter test plan is included as [generic-api-jmeter-test-plan.jmx](./generic-api-jmeter-test-plan.jmx).
 
-See [the discovery-api sample script](./discovery-api/run.sh) for an example invocation.
+See [the discovery-api sample script](./discovery-api/) for an example invocation.

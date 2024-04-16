@@ -48,15 +48,4 @@ Install jmeter if you don’t already have it via:
 
 A general purpose Jmeter test plan is included as [generic-api-jmeter-test-plan.jmx](./generic-api-jmeter-test-plan.jmx).
 
-Invoke like:
-
-```
-HEAP="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m" jmeter \
-  -t ../random-api-endpoints.jmx \
-  -n \
-  -l $LOGFILE \
-  -Jusers=10 \
-  -Jduration=720 \
-  -Jcsv=[path to CSV containing request paths] \
-  -Jdomain=[domain of app]
-```
+See [the discovery-api sample script](./discovery-api/run.sh) for an example invocation.

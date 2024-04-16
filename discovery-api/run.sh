@@ -28,8 +28,7 @@ HEAP="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m" jmeter \
   -Jusers=10 \
   -Jduration=600 \
   -Jcsv=$CSV \
-  -Jdomain=discovery-api-qa.nypl.org
-  # -Jdomain=qa-platform.nypl.org
+  -Jdomain=qa-platform.nypl.org
 
 echo Finished. Logs are at runs/$LOGFILE
 

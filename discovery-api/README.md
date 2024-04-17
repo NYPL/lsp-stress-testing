@@ -2,9 +2,9 @@
 
 1. Generate request paths CSV:
 
-`PATHS_COUNT=1500 BASE_URL=https://qa-platform.nypl.org ruby generate-api-paths.rb`
+`PATHS_COUNT=1000 BASE_URL=https://qa-platform.nypl.org ruby generate-api-paths.rb`
 
-This will create a CSV called `./discovery-api-paths.csv` with 1500 distinct, valid (non-404) discovery-api paths.
+This will create a CSV called `./discovery-api-paths.csv` with 1000 distinct, valid (non-404) discovery-api paths.
 
 2. Run Jmeter:
 

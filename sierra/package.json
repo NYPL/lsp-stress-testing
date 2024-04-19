@@ -1,0 +1,17 @@
+{
+  "name": "sierra",
+  "version": "1.0.0",
+  "description": "",
+  "main": "generate-api-paths.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nypl/sierra-wrapper": "^1.0.2",
+    "dotenv": "^16.3.1",
+    "minimist": "^1.2.8"
+  }
+}

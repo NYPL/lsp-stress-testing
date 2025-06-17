@@ -52,6 +52,6 @@ while [ $COUNT -lt $TOTAL ]; do
   sleep 3
 done
 
-TRIMMED_CSV=$(cat "$CSV" | head -$LIMIT)
+TRIMMED_CSV=$(cat "$CSV" | head -$TOTAL)
 
 echo "$TRIMMED_CSV" >"$CSV"

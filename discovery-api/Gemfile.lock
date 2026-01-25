@@ -1,7 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    httparty (0.21.0)
+    csv (3.3.5)
+    httparty (0.24.0)
+      csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
     mini_mime (1.1.5)

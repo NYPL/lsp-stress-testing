@@ -8,6 +8,6 @@
 
 2. Run Jmeter:
 
-`./run.sh my-test ./rc-paths.csv`
+`./run.sh production my-report ./rc-paths.csv`
 
 Report will launch in a browser on completion (or when you ctrl-c the test).

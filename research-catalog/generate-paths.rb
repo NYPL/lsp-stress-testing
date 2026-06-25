@@ -78,7 +78,7 @@ while page_counts[:browse] < PAGES_COUNT * makeup[:browse]
   term_pool = keywords.shuffle if term_pool.empty?
   term = term_pool.shift
   # paths << "/research/research-catalog/browse/subjects/#{term}"
-  paths << "/research/research-catalog/browse?q=#{term}"
+  paths << "/research/research-catalog/browse?q=#{CGI.escape term}"
   page_counts[:browse] += 1
 end
 

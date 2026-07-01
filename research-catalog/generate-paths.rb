@@ -24,12 +24,15 @@ end
 keywords = CSV.read('../data/search-keywords.csv')
   .map { |row| row.first }
 
+  
+browse_keywords = File.readlines('../data/subject.csv').map(&:strip).reject(&:empty?)
+
 target_searches = (makeup[:search] * PAGES_COUNT).to_i
 raise "I would like to be working with #{target_searches} distinct keywords but I have only #{keywords.size}" if keywords.size < target_searches
 
 bnums = []
 keywords.shuffle.each do |keyword|
-  puts "Fetching #{keyword}"
+  # puts "Fetching #{keyword}"
   raw_response = HTTParty.get("https://qa-platform.nypl.org/api/v0.1/discovery/resources?q=#{CGI.escape keyword}")
   # puts "Raw: #{raw_response}"
   response = JSON.parse raw_response
@@ -73,10 +76,10 @@ while page_counts[:homepage] < PAGES_COUNT * makeup[:homepage]
 end
 
 # Gather browse paths
-term_pool = []
+browse_term_pool = []
 while page_counts[:browse] < PAGES_COUNT * makeup[:browse]
-  term_pool = keywords.shuffle if term_pool.empty?
-  term = term_pool.shift
+  browse_term_pool = browse_keywords.shuffle if browse_term_pool.empty?
+  term = browse_term_pool.shift
   # paths << "/research/research-catalog/browse/subjects/#{term}"
   paths << "/research/research-catalog/browse?q=#{CGI.escape term}"
   page_counts[:browse] += 1

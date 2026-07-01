@@ -1,13 +1,25 @@
 #!/bin/bash
 
-# Usage: ./run-search-comparison.sh [DELAY_IN_MS]
+# Usage: ./run-search-comparison.sh [--delay MS] [--paths COUNT]
+# Example: ./run-search-comparison.sh --delay 3000 --paths 500
 
 DELAY=${1:-0}
+DELAY=0
+export PATHS_COUNT=500
+
+while [[ "$#" -gt 0 ]]; do
+  case $1 in
+    --delay) DELAY="$2"; shift ;;
+    --paths) export PATHS_COUNT="$2"; shift ;;
+    *) echo "Unknown parameter passed: $1"; exit 1 ;;
+  esac
+  shift
+done
 
 echo "------------------------------------------------"
-echo "1. Generating overlapping search paths..."
+echo "1. Generating search paths..."
 echo "------------------------------------------------"
-ruby ./generate-overlapping-search-paths.rb
+ruby ./generate-search-comparison-paths.rb
 
 TIMESTAMP=$(date +"%Y%m%d%H%M")
 mkdir -p runs

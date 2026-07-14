@@ -1,14 +1,15 @@
 #!/bin/bash
 
-# Usage: ./run-search-comparison.sh [--delay MS] [--paths COUNT]
-# Example: ./run-search-comparison.sh --delay 3000 --paths 500
+# Usage: ./run-search-comparison.sh [--env qa|production] [--delay MS] [--paths COUNT]
+# Example: ./run-search-comparison.sh --env production --delay 3000 --paths 500
 
-DELAY=${1:-0}
 DELAY=0
 export PATHS_COUNT=500
+TARGET_ENV="qa"
 
 while [[ "$#" -gt 0 ]]; do
   case $1 in
+    --env) TARGET_ENV="$2"; shift ;;
     --delay) DELAY="$2"; shift ;;
     --paths) export PATHS_COUNT="$2"; shift ;;
     *) echo "Unknown parameter passed: $1"; exit 1 ;;
@@ -16,10 +17,16 @@ while [[ "$#" -gt 0 ]]; do
   shift
 done
 
+if [ "$TARGET_ENV" = "production" ]; then
+  ENV=""
+else
+  ENV="qa-"
+fi
+
 echo "------------------------------------------------"
 echo "1. Generating search paths..."
 echo "------------------------------------------------"
-ruby ./generate-search-comparison-paths.rb
+ruby ./generate-search-comparison-paths.rb --PATHS_COUNT=$PATHS_COUNT
 
 TIMESTAMP=$(date +"%Y%m%d%H%M")
 mkdir -p runs
@@ -30,7 +37,7 @@ MERGED_JTL="runs/search-comparison-$TIMESTAMP.jtl"
 REPORT_DIR="runs/search-comparison-report-$TIMESTAMP"
 
 echo "------------------------------------------------"
-echo "2. Running Discovery API tests..."
+echo "2. Running $TARGET_ENV Discovery API tests..."
 echo "------------------------------------------------"
 HEAP="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m" jmeter \
   -t ../generic-api-jmeter-test-plan.jmx \
@@ -39,11 +46,11 @@ HEAP="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m" jmeter \
   -Jusers=10 \
   -Jduration=600 \
   -Jcsv=$(pwd)/../discovery-api/api-search-paths.csv \
-  -Jdomain=qa-platform.nypl.org \
+  -Jdomain=${ENV}platform.nypl.org \
   -Jdelay=$DELAY
 
 echo "------------------------------------------------"
-echo "3. Running Research Catalog tests..."
+echo "3. Running $TARGET_ENV Research Catalog tests..."
 echo "------------------------------------------------"
 HEAP="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m" jmeter \
   -t ../research-catalog/rc.jmx \
@@ -52,7 +59,7 @@ HEAP="-Xms1g -Xmx1g -XX:MaxMetaspaceSize=256m" jmeter \
   -Jusers=10 \
   -Jduration=600 \
   -Jcsv=$(pwd)/../research-catalog/rc-search-paths.csv \
-  -Jdomain=qa-www.nypl.org \
+  -Jdomain=${ENV}www.nypl.org \
   -Jdelay=$DELAY
 
 echo "------------------------------------------------"

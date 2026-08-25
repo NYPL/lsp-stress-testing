@@ -76,6 +76,8 @@ ruby -r csv -e '
         
         if url.include?("/aggregations")
           row["label"] = "DiscoAPI aggregations"
+        elsif url.include?("?include_aggregations")
+          row["label"] = "DiscoAPI search + aggregations"
         elsif url.include?("/api/v0.1/discovery/resources")
           row["label"] = "DiscoAPI search"
         elsif url.include?("/research/research-catalog/search")

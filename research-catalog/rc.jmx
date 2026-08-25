@@ -137,9 +137,9 @@
             <stringProp name="filename">${__P(csv)}</stringProp>
             <boolProp name="ignoreFirstLine">false</boolProp>
             <boolProp name="quotedData">false</boolProp>
-            <boolProp name="recycle">true</boolProp>
+            <boolProp name="recycle">false</boolProp>
             <stringProp name="shareMode">shareMode.all</stringProp>
-            <boolProp name="stopThread">false</boolProp>
+            <boolProp name="stopThread">true</boolProp>
             <stringProp name="variableNames">path</stringProp>
           </CSVDataSet>
           <hashTree/>

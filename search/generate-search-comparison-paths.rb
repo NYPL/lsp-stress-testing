@@ -50,7 +50,7 @@ overlap_keywords.each do |keyword|
   api_paths << ["/api/v0.1/discovery/resources/aggregations?q=#{escaped}&search_scope=#{current_scope}", current_scope]
 
   # Discovery API search with included aggregations 
-  api_paths << ["/api/v0.1/discovery/resources?q=#{escaped}&search_scope=#{current_scope}?include_aggregations=true", current_scope]
+  api_paths << ["/api/v0.1/discovery/resources?q=#{escaped}&search_scope=#{current_scope}&include_aggregations=true", current_scope]
 
   # The RC is requesting both of the above on every search
   rc_paths << ["/research/research-catalog/search?q=#{escaped}&search_scope=#{current_scope}", current_scope]

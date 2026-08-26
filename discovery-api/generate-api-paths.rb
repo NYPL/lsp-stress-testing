@@ -31,7 +31,7 @@ keywords = CSV.read('../data/search-keywords.csv')
   .filter { |keyword| ! ['new york times', 'new yorker', 'new york daily news', 'san francisco chronicle', 'Times-Picayune', 'Times Picayune'].include? keyword }
 
 target_searches = (makeup[:search] * PATHS_COUNT).to_i
-raise "I would like to be working with #{target_searches} distinct keywrds but I have only #{keywords.size}" if keywords.size < target_searches
+raise "I would like to be working with #{target_searches} distinct keywords but I have only #{keywords.size}" if keywords.size < target_searches
 
 bnums = []
 keywords.shuffle.each do |keyword|

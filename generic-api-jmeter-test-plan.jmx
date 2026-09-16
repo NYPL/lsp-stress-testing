@@ -17,7 +17,7 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">${__P(users,5)}</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(rampup,1)}</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">${__P(duration,3600)}</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
@@ -44,9 +44,10 @@
             <stringProp name="filename">${__P(csv)}</stringProp>
             <boolProp name="ignoreFirstLine">true</boolProp>
             <boolProp name="quotedData">false</boolProp>
-            <boolProp name="recycle">false</boolProp>
+            <!-- boolProp can't be parameterized via __P; loop CSV forever and let ThreadGroup.duration end the test -->
+            <boolProp name="recycle">true</boolProp>
             <stringProp name="shareMode">shareMode.all</stringProp>
-            <boolProp name="stopThread">true</boolProp>
+            <boolProp name="stopThread">false</boolProp>
             <stringProp name="variableNames">path</stringProp>
           </CSVDataSet>
           <hashTree/>
@@ -55,10 +56,14 @@
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
               <collectionProp name="Arguments.arguments"/>
             </elementProp>
-            <stringProp name="HTTPSampler.domain">${__P(domain)}</stringProp>
-            <stringProp name="HTTPSampler.protocol">https</stringProp>
+            <stringProp name="HTTPSampler.domain">${__P(domain,qa-platform.nypl.org)}</stringProp>
+            <stringProp name="HTTPSampler.port">${__P(port,)}</stringProp>
+            <stringProp name="HTTPSampler.protocol">${__P(protocol,https)}</stringProp>
             <stringProp name="HTTPSampler.path">${path}</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
+            <!-- without a client timeout the server just queues forever and never fails; real clients (browsers/gateways) enforce one -->
+            <stringProp name="HTTPSampler.connect_timeout">${__P(connectTimeout,5000)}</stringProp>
+            <stringProp name="HTTPSampler.response_timeout">${__P(responseTimeout,30000)}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>

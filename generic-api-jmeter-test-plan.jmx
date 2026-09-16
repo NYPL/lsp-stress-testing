@@ -62,8 +62,8 @@
             <stringProp name="HTTPSampler.path">${path}</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
             <!-- client timeout -->
-            <stringProp name="HTTPSampler.connect_timeout">${__P(connectTimeout,5000)}</stringProp>
-            <stringProp name="HTTPSampler.response_timeout">${__P(responseTimeout,30000)}</stringProp>
+            <!-- <stringProp name="HTTPSampler.connect_timeout">${__P(connectTimeout,5000)}</stringProp>
+            <stringProp name="HTTPSampler.response_timeout">${__P(responseTimeout,30000)}</stringProp> -->
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
             <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>

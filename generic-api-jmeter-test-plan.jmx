@@ -44,7 +44,7 @@
             <stringProp name="filename">${__P(csv)}</stringProp>
             <boolProp name="ignoreFirstLine">true</boolProp>
             <boolProp name="quotedData">false</boolProp>
-            <!-- boolProp can't be parameterized via __P; loop CSV forever and let ThreadGroup.duration end the test -->
+            <!--loop CSV forever and let ThreadGroup.duration end the test -->
             <boolProp name="recycle">true</boolProp>
             <stringProp name="shareMode">shareMode.all</stringProp>
             <boolProp name="stopThread">false</boolProp>
@@ -61,7 +61,7 @@
             <stringProp name="HTTPSampler.protocol">${__P(protocol,https)}</stringProp>
             <stringProp name="HTTPSampler.path">${path}</stringProp>
             <stringProp name="HTTPSampler.method">GET</stringProp>
-            <!-- without a client timeout the server just queues forever and never fails; real clients (browsers/gateways) enforce one -->
+            <!-- client timeout -->
             <stringProp name="HTTPSampler.connect_timeout">${__P(connectTimeout,5000)}</stringProp>
             <stringProp name="HTTPSampler.response_timeout">${__P(responseTimeout,30000)}</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
